@@ -60,6 +60,10 @@ def move_down(board):
 
 
 def has_moves(board):
+    # an empty board has nothing to slide or merge
+    if board.get_max_tile() == 0:
+        return False
+
     if not board.is_board_full():
         return True
 
