@@ -11,6 +11,7 @@ python3 demo/render.py demo/game.json demo/demo.mp4 --seconds 45
 
 - `game.json`, `demo.mp4`: depth 3, seed 29, score 61020, reaches 4096
 - `game_d2.json`, `demo_depth2.mp4`: depth 2, seed 3, score 52920, reaches 4096
+- `preview.gif`: the depth 3 game in 16 seconds, used in the main readme
 
 both are among the best games of their agent, not typical ones.
 typical numbers are in `results/README.md`.
