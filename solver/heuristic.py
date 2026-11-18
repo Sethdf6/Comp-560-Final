@@ -1,7 +1,7 @@
 # heuristic for the leaves of the search
 # takes a board, returns a number, higher is better
 
-# how much one empty cell is worth next to the snake score
+# how much one empty cell is worth in snake_with_bonus
 EMPTY_WEIGHT = 0.1
 
 _weights_cache = {}
@@ -38,7 +38,13 @@ def snake_score(board):
     return total / weights[0][0]
 
 
-def evaluate(board):
-    # snake order keeps the board tidy, empty cells keep it alive
+def snake_with_bonus(board):
+    # first version, snake score times a bonus for every empty cell
+    # it did worse than the snake score alone, see results/README.md
     empty = len(board.get_empty_cells())
     return snake_score(board) * (1 + EMPTY_WEIGHT * empty)
+
+
+def evaluate(board):
+    # the heuristic the solver uses by default
+    return snake_score(board)

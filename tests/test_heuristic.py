@@ -1,7 +1,7 @@
 import unittest
 
 from game.board import Board
-from solver.heuristic import evaluate, snake_weights
+from solver.heuristic import evaluate, snake_weights, snake_with_bonus
 
 
 class TestSnakeWeights(unittest.TestCase):
@@ -29,21 +29,28 @@ class TestEvaluate(unittest.TestCase):
         mixed = Board(2, [[4, 8], [0, 0]])
         self.assertGreater(evaluate(ordered), evaluate(mixed))
 
-    def test_empty_cells_help(self):
-        # same snake score, one board has more room
-        open_board = Board(2, [[8, 0], [0, 0]])
-        tight = Board(2, [[4, 8], [0, 0]])
-        self.assertGreater(evaluate(open_board), evaluate(tight))
-
     def test_hand_computed_value(self):
-        # snake score 8 * 1 + 4 * 0.5 = 10, two empty cells
+        # 8 * 1 + 4 * 0.5 = 10
         board = Board(2, [[8, 4], [0, 0]])
-        self.assertAlmostEqual(evaluate(board), 10 * 1.2)
+        self.assertAlmostEqual(evaluate(board), 10)
 
     def test_board_is_untouched(self):
         board = Board(2, [[8, 4], [2, 0]])
         evaluate(board)
         self.assertEqual(board.grid, [[8, 4], [2, 0]])
+
+
+class TestSnakeWithBonus(unittest.TestCase):
+    def test_empty_cells_help(self):
+        # same snake score, one board has more room
+        open_board = Board(2, [[8, 0], [0, 0]])
+        tight = Board(2, [[4, 8], [0, 0]])
+        self.assertGreater(snake_with_bonus(open_board), snake_with_bonus(tight))
+
+    def test_hand_computed_value(self):
+        # snake score 10, two empty cells
+        board = Board(2, [[8, 4], [0, 0]])
+        self.assertAlmostEqual(snake_with_bonus(board), 10 * 1.2)
 
 
 if __name__ == "__main__":

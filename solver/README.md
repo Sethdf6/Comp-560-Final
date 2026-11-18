@@ -36,7 +36,7 @@ depth counts player moves.
 
 `evaluate(board)` in `heuristic.py` scores a leaf board.
 big tiles should follow a snake path from the top left corner.
-empty cells add a bonus.
+`snake_with_bonus` also rewards empty cells, but it did worse in the experiments.
 
 ## autoplay
 

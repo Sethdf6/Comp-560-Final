@@ -15,7 +15,11 @@ python3 experiments.py --summary
 - random: any legal move
 - greedy: best move by heuristic, no search
 - expectimax d1, d2, d3: search depth in player moves
-- d2 snake only, d2 empty only: depth 2 with one part of the heuristic
+- d2 snake only, d2 empty only, d3 snake only: one part of the heuristic
+
+greedy and expectimax d1 to d3 use `snake_with_bonus`, the first heuristic we tried.
+it is the snake score times a bonus for every empty cell.
+the solver now uses the snake score alone, because it did better here.
 
 ## table
 
@@ -30,6 +34,7 @@ the tile columns show the share of games that reached that tile.
 | expectimax d3 | 50 | 22976 | 24136 | 98% | 92% | 52% | 2% | 1231 |
 | d2 snake only | 50 | 19452 | 18324 | 94% | 72% | 48% | 2% | 1047 |
 | d2 empty only | 50 | 10051 | 7676 | 90% | 48% | 2% | 0% | 627 |
+| d3 snake only | 50 | 29332 | 32508 | 98% | 94% | 72% | 10% | 1513 |
 
 ## time per move
 
@@ -49,6 +54,7 @@ the `seconds` column in the csv was measured with 14 games running at once, so i
 - depth 1 is almost the same as greedy. they got the same score in 32 of 50 seeds. one level of chance does not change the choice much.
 - each extra level costs about 30 to 80 times more time.
 - the snake part of the heuristic does the work. empty cells alone reach 2048 in 2% of games.
-- the empty cell bonus hurts at depth 2. snake only reaches 2048 in 48% of games, snake with the bonus in 24%.
+- the empty cell bonus hurts. snake only reaches 2048 in 48% of games at depth 2 and 72% at depth 3, snake with the bonus in 24% and 52%.
+- the best agent is depth 3 with snake only. it reached 4096 in 5 of 50 games.
 
 50 games is a small sample, so close numbers can swap.

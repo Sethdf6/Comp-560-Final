@@ -16,7 +16,7 @@ from multiprocessing import Pool
 from game.game_mechanics import move_down, move_left, move_right, move_up
 from game.game_state import GameState
 from solver.expectimax import best_move
-from solver.heuristic import evaluate, snake_score
+from solver.heuristic import evaluate, snake_score, snake_with_bonus
 
 RESULTS_FILE = os.path.join("results", "games.csv")
 FIELDS = ["agent", "seed", "score", "max_tile", "moves", "seconds"]
@@ -46,11 +46,11 @@ def random_agent(board):
 
 
 def greedy_agent(board):
-    # baseline 2, same heuristic but no search and no chance node
+    # baseline 2, heuristic only, no search and no chance node
     options = legal_moves(board)
     if not options:
         return None
-    return max(options, key=lambda option: option[2] + evaluate(option[1]))[0]
+    return max(options, key=lambda option: option[2] + snake_with_bonus(option[1]))[0]
 
 
 def empty_cells(board):
@@ -63,13 +63,15 @@ def expectimax_agent(depth, value_fn=evaluate):
 
 AGENTS = {
     "random": random_agent,
+    # these four use the snake score with the empty cell bonus
     "greedy": greedy_agent,
-    "expectimax d1": expectimax_agent(1),
-    "expectimax d2": expectimax_agent(2),
-    "expectimax d3": expectimax_agent(3),
-    # ablation at depth 2, one part of the heuristic at a time
+    "expectimax d1": expectimax_agent(1, snake_with_bonus),
+    "expectimax d2": expectimax_agent(2, snake_with_bonus),
+    "expectimax d3": expectimax_agent(3, snake_with_bonus),
+    # one part of the heuristic at a time
     "d2 snake only": expectimax_agent(2, snake_score),
     "d2 empty only": expectimax_agent(2, empty_cells),
+    "d3 snake only": expectimax_agent(3, snake_score),
 }
 
 
