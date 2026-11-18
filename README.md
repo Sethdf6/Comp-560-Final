@@ -93,9 +93,7 @@ python 3, run from the repo root. the game and the solver need no packages.
 
 ## ai use
 
-ai tools helped with the parts below.
-
-we used an ai assistant (claude) for them.
+we used an ai assistant (claude) for the parts below.
 
 - **experiment infrastructure**: the tooling around the experiments. running games in parallel, saving every game to a csv, resuming an interrupted run, and scaling the evaluation to 200 games per agent.
 - **figures, video and readme**: the results chart, the demo videos and the layout of this readme.
