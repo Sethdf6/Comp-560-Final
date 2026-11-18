@@ -96,8 +96,12 @@ python 3, run from the repo root. the game and the solver need no packages.
 we used an ai assistant (claude) for the parts below.
 
 - **experiment infrastructure**: the tooling around the experiments. running games in parallel, saving every game to a csv, resuming an interrupted run, and scaling the evaluation to 200 games per agent.
+- **experiment runs**: running the agent and depth sweeps and collecting the results into the tables.
 - **figures, video and readme**: the results chart, the demo videos and the layout of this readme.
 - **testing and verification**: test scaffolding, debugging, and an end to end check of the code against an independent reference implementation.
+- **bug finding and code review**: reviewing the code for errors. this found the `has_moves` bug on an empty board.
+- **statistics checks**: checking the reported numbers, such as medians, rounding, and whether a gap is larger than sampling noise.
+- **cleanup**: naming, comments and small simplifications.
 - **proofreading**: spelling and wording of the written notes.
 
 all numbers above come from `results/games.csv` and can be rebuilt with the commands in this readme.
