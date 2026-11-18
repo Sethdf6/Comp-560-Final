@@ -10,6 +10,7 @@ import argparse
 import csv
 import os
 import random
+import statistics
 import time
 from multiprocessing import Pool
 
@@ -149,16 +150,17 @@ def summary_table():
             continue
 
         count = len(games)
-        scores = sorted(int(row["score"]) for row in games)
+        scores = [int(row["score"]) for row in games]
         tiles = [int(row["max_tile"]) for row in games]
         moves = sum(int(row["moves"]) for row in games)
 
+        # int(x + 0.5) rounds a half up, round() would send 0.5 to 0
         reached = [
-            f"{round(100 * sum(tile >= goal for tile in tiles) / count)}%"
+            f"{int(100 * sum(tile >= goal for tile in tiles) / count + 0.5)}%"
             for goal in (512, 1024, 2048, 4096)
         ]
         lines.append(
-            f"| {name} | {count} | {round(sum(scores) / count)} | {scores[count // 2]} | "
+            f"| {name} | {count} | {round(sum(scores) / count)} | {round(statistics.median(scores))} | "
             + " | ".join(reached)
             + f" | {round(moves / count)} |"
         )
