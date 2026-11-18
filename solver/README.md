@@ -49,7 +49,7 @@ python3 autoplay.py --depth 3
 ```
 
 depth 2 takes about 9 ms per move, depth 3 about 285 ms.
-numbers from 50 games per agent are in `results/README.md`.
+numbers from 200 games per agent are in `results/README.md`.
 
 ## tests
 
